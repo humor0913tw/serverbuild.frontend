@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Table from './Table';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Serverlist from './Serverlist';
+import Twvm from './Twvm';
+
+// This is the home component
+const Home = () => <h1>Welcome to home pageeee</h1>;
 
 function App() {
-  const [serverList, setServerList] = useState([]);
-
-  useEffect(() => {
-    fetchServerList();
-  }, []);
-
-  const fetchServerList = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/serverbuild');
-      const data = await response.json();
-      setServerList(data);
-    } catch (error) {
-      console.error('Error fetching server list:', error);
-    }
-  };  
-
   return (
-    <div className="container">
-      <h1>Server List</h1>
-      <Table data={serverList} />
-    </div>
+    <Router>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/serverbuild" element={<Serverlist />} />
+          <Route path="/twvm" element={<Twvm />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
